@@ -1,0 +1,12 @@
+.block {
+    background-color: #EBECF0;
+    color: #000;
+    border-radius: 10px;
+    width: 282px;
+    margin: 12px;
+}
+
+.block-header {
+    text-align: left;
+    margin: 12px;
+}
