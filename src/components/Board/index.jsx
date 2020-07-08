@@ -7,25 +7,49 @@ class Board extends React.Component {
         super(props);
         this.state = {
             blocks: [
-            {blockName: 'Backlog', items: [], showInput: false},
-            {blockName: 'Ready', items: [], showInput: false}, 
-            {blockName: 'In Progress', items: [], showInput: false},
-            {blockName: 'Finished', items: [], showInput: false}
-            ]
+            {id: 1, blockName: 'Backlog', items: []},
+            {id: 2, blockName: 'Ready', items: []}, 
+            {id: 3, blockName: 'In Progress', items: []},
+            {id: 4, blockName: 'Finished', items: []}
+            ],
+            submitStatus: false,
         }
     }
 
-    showInput = (event) => {
-            console.log(event);
+    submitStatusChange = () => {
+        this.setState({submitStatus: !this.state.submitStatus})
+    }
+
+    updateItems = (blockId, newItems) => {
+        const blocksArr = this.state.blocks
+        let active = 0;
+        let finished = 0;
+        blocksArr.forEach((item) => {
+            if (item.id === blockId) { item.items = newItems }
+            if (item.id === 1) { active = item.items.length }  
+            if (item.id === 4) { finished = item.items.length } 
+        })
+        this.setState({ blocks: blocksArr})
+        this.props.updateFooterData(active, finished)
     }
 
     render() {
         return(
-            <main className="App-main">
+            <main className="main">
                 <div className="main-wrapper">
                     {this.state.blocks.map((item) => {
+                    let prevItem = this.state.blocks.find(tmp => tmp.id === item.id-1)
+                    if (item.id > 1) {prevItem = prevItem.items} else {prevItem = []}
                         return (
-                            <Block blockName = {item.blockName} />
+                            <Block 
+                                key = {item.id} 
+                                blockId = {item.id} 
+                                blockName = {item.blockName} 
+                                blockItems = {item.items} 
+                                updateItems = {this.updateItems} 
+                                prevItem = {prevItem} 
+                                submitStatus = {this.state.submitStatus} 
+                                submitStatusChange = {this.submitStatusChange}/>
                         );
                     })
                     }

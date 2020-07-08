@@ -7,7 +7,7 @@
     font-weight: normal;
     font-size: 18px;
     border-radius: 5px;
-    margin: 0 0 8px 6px;
+    margin: 12px 12px 8px 12px;
     padding: auto;
     color: #5E6C84;
 }
@@ -18,6 +18,14 @@
 
 .add:hover {
     background-color: white;
+}
+
+.add:disabled {
+    cursor: initial;
+}
+
+.add:disabled:hover {
+    background-color: initial;
 }
 
 .submit {
