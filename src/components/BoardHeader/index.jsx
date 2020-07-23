@@ -21,7 +21,7 @@ const BoardHeader = () => {
     }
 
     const handleClickOutside = (event) => {
-        if (event.target.className !== 'user-menu' && event.target.className !== 'avatar' && event.target.className !== 'arrow') { 
+        if (!['user-menu', 'avatar', 'arrow'].includes(event.target.className)) { 
             setArrow("arrow-down.svg")
             setUserMenu("") 
         }  
@@ -39,7 +39,6 @@ const BoardHeader = () => {
                 <div className="avatar-and-arrow"  onClick={setNewArrow}>
                 <img className="avatar" src='user-avatar.svg' alt="Avatar"></img>
                 <img className="arrow" src={arrow} alt=""></img>
-                
                 </div>
                 {userMenu}
             </div>

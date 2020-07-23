@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
-import Block from './../Block'
+import Block from './../Block';
+
 
 class Board extends React.Component {
     constructor(props) {
@@ -21,14 +22,14 @@ class Board extends React.Component {
     }
 
     updateItems = (blockId, newItems) => {
-        const blocksArr = this.state.blocks
         let active = 0;
         let finished = 0;
-        blocksArr.forEach((item) => {
+        const blocksArr = this.state.blocks.map((item) => {
             if (item.id === blockId) { item.items = newItems }
             if (item.id === 1) { active = item.items.length }  
             if (item.id === 4) { finished = item.items.length } 
-        })
+            return item
+            })
         this.setState({ blocks: blocksArr})
         this.props.updateFooterData(active, finished)
     }

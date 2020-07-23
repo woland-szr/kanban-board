@@ -1,7 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './index.css';
 import BoardButton from '../BoardButton';
 import BoardInput from '../BoardInput';
+import InfoBlock from './../InfoBlock';
 
 class Block extends React.Component {
     constructor(props) {
@@ -29,8 +31,7 @@ class Block extends React.Component {
         const item = this.state.newItem;
         if (item !== '') {
             if (this.props.blockId > 1) {
-                let prevArr = this.props.prevItem
-                prevArr = prevArr.filter(element => element !== item)
+                let prevArr = this.props.prevItem.filter(element => element !== item)
                 this.props.updateItems(this.props.blockId-1, prevArr)
             }
                    
@@ -64,7 +65,10 @@ class Block extends React.Component {
 
         return (
         <div className="block">
-            <div className="block-header">{this.props.blockName}</div>
+            <Router>
+                <div className="block-header"><Link to={`/info/${this.props.blockName}`}>{this.props.blockName}</Link> </div>
+                <Route path="/info/:name" render={(props) => <InfoBlock items={this.props.blockItems} {...props}/>} />
+            </Router>
             {this.props.blockItems.map((item, id) => {
                 return (
                     <div className="item" key={id}>{item}</div>
